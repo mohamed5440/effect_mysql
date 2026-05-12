@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=your_password_here
+      - MYSQL_DATABASE=app_database
+      - MYSQL_PORT=3306
+  
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=your_password_here
+      - MYSQL_DATABASE=app_database
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
